@@ -85,8 +85,9 @@ module ActiveAdmin
                                           }, &form_block
           end
 
+          link_id = "add-" + association.to_s.singularize.gsub(/_/, "-")
           js = template.escape_javascript(js)
-          js = template.link_to I18n.t('active_admin.has_many_new', :model => object.class.reflect_on_association(association).klass.model_name.human), "#", :onclick => "$(this).before('#{js}'.replace(/NEW_RECORD/g, new Date().getTime())); return false;", :class => "button"
+          js = template.link_to I18n.t('active_admin.has_many_new', :model => object.class.reflect_on_association(association).klass.model_name.human), "#", :onclick => "$(this).before('#{js}'.replace(/NEW_RECORD/g, new Date().getTime())); return false;", :class => "button", :id => link_id
 
           form_buffers.last << js.html_safe
         end
